@@ -49,14 +49,14 @@
     
     __weak __typeof__(self) weakSelf = self;
     
-    [Xendit createTokenWithCardData:cardData completion:^(XENCCToken * _Nullable token, NSError * _Nullable error) {
+    [Xendit createTokenFromViewController:self cardData:cardData completion:^(XENCCToken * _Nullable token, NSError * _Nullable error) {
         NSString *alertTitle = nil;
         NSString *alertMessage = nil;
         
         if (token != nil) {
             // Handle successful tokenization. Token is of type XenditCCToken
             alertTitle = @"Token";
-            alertMessage = [NSString stringWithFormat:@"TokenID - %@, Status - %@, AuthenticateURL - %@", token.tokenID, token.status, token.authenticationURL];
+            alertMessage = [NSString stringWithFormat:@"TokenID - %@, Status - %@", token.tokenID, token.status];
         } else {
             alertTitle = @"Error";
             alertMessage = error.localizedDescription;
