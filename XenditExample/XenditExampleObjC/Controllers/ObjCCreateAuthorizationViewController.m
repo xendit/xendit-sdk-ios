@@ -47,16 +47,18 @@
     
     __weak __typeof__(self) weakSelf = self;
     
-    [Xendit createAuthenticationFromViewController:self tokenId:tokenID amount:@(amount.integerValue) cardCVN:cvn completion:^(XENCCToken * _Nullable token, NSError * _Nullable error) {
+    [Xendit createAuthenticationFromViewController:self tokenId:tokenID amount:@(amount.integerValue) cardCVN:cvn completion:^(XENAuthentication * _Nullable authentication, XENError * _Nullable error) {
         NSString *alertTitle = nil;
         NSString *alertMessage = nil;
-        if (token != nil) {
-            alertTitle = @"Token";
-            alertMessage = [NSString stringWithFormat:@"TokenID - %@, Status - %@", token.tokenID, token.status];
+
+        if (authentication != nil) {
+            alertTitle = @"Authentication";
+            alertMessage = [NSString stringWithFormat:@"TokenID - %@, Status - %@", authentication.authenticationID, authentication.status];
         } else {
-            alertTitle = @"Error";
-            alertMessage = error.localizedDescription;
+            alertTitle = error.errorCode;
+            alertMessage = error.message;
         }
+
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage handler:nil];
         dispatch_async(dispatch_get_main_queue(), ^(void){
             [weakSelf.activityIndicator stopAnimating];

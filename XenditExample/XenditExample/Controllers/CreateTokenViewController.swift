@@ -51,14 +51,16 @@ class CreateTokenViewController: UIViewController {
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
             }
-            if token != nil {
-                // Handle successful tokenization. Token is of type XenditCCToken
-                let message = String(format: "TokenID - %@, Status - %@", (token?.id)!, (token?.status)!)
-                self.showAlert(title: "Token", message: message)
-            } else {
+
+            if (error != nil) {
                 // Handle error. Error is of type XenditError
-                self.showAlert(title: "Error", message: error.debugDescription)
+                self.showAlert(title: error!.errorCode, message: error!.message)
+                return
             }
+
+            // Handle successful tokenization. Token is of type XenditCCToken
+            let message = String(format: "TokenID - %@, Status - %@", (token?.id)!, (token?.status)!)
+            self.showAlert(title: "Token", message: message)
         }
     }
 

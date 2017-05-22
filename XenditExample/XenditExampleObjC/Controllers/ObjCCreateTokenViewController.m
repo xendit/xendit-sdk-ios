@@ -49,7 +49,7 @@
     
     __weak __typeof__(self) weakSelf = self;
     
-    [Xendit createTokenFromViewController:self cardData:cardData completion:^(XENCCToken * _Nullable token, NSError * _Nullable error) {
+    [Xendit createTokenFromViewController:self cardData:cardData completion:^(XENCCToken * _Nullable token, XENError * _Nullable error) {
         NSString *alertTitle = nil;
         NSString *alertMessage = nil;
         
@@ -58,8 +58,8 @@
             alertTitle = @"Token";
             alertMessage = [NSString stringWithFormat:@"TokenID - %@, Status - %@", token.tokenID, token.status];
         } else {
-            alertTitle = @"Error";
-            alertMessage = error.localizedDescription;
+            alertTitle = error.errorCode;
+            alertMessage = error.message;
         }
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage handler:nil];
         dispatch_async(dispatch_get_main_queue(), ^(void){

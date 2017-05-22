@@ -42,18 +42,20 @@ class CreateAuthentification: UIViewController {
         
         activityIndicator.startAnimating()
 
-        Xendit.createAuthentication(fromViewController: self, tokenId: tokenID!, amount: amountNumber, cardCVN: cardCVN!) { (token, error) in
+        Xendit.createAuthentication(fromViewController: self, tokenId: tokenID!, amount: amountNumber, cardCVN: cardCVN!) { (authentication, error) in
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
             }
-            if token != nil {
-                // Will return authentication with id. ID will be used later
-                let message = String(format: "TokenID - %@, Status - %@", (token?.id)!, (token?.status)!)
-                self.showAlert(title: "Token", message: message)
-            } else {
+
+            if (error != nil) {
                 // Handle error. Error is of type XenditError
-                self.showAlert(title: "Error", message: error.debugDescription)
+                self.showAlert(title: error!.errorCode, message: error!.message)
+                return
             }
+
+            // Will return authentication with id. ID will be used later
+            let message = String(format: "AuthenticationID - %@, Status - %@", (authentication?.id)!, (authentication?.status)!)
+            self.showAlert(title: "Authentication", message: message)
         }
     }
     
