@@ -14,7 +14,7 @@ class CreateAuthentification: UIViewController {
     
     @IBOutlet weak var tokenIDTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
-    @IBOutlet weak var cardCVNTextField: UITextField!
+    @IBOutlet weak var resultsTextView: UITextView!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -29,10 +29,9 @@ class CreateAuthentification: UIViewController {
         view.endEditing(true)
                 
         let tokenID = tokenIDTextField.text
-        let cardCVN = cardCVNTextField.text
         let amount = amountTextField.text
         
-        guard (tokenID?.characters.count)! > 0, (amount?.characters.count)! > 0, (cardCVN?.characters.count)! > 0  else {
+        guard (tokenID?.characters.count)! > 0, (amount?.characters.count)! > 0  else {
             showAlert(title: "Error", message: "Some fields are empty. Please fill all fields.")
             return
         }
@@ -42,7 +41,7 @@ class CreateAuthentification: UIViewController {
         
         activityIndicator.startAnimating()
 
-        Xendit.createAuthentication(fromViewController: self, tokenId: tokenID!, amount: amountNumber, cardCVN: cardCVN!) { (authentication, error) in
+        Xendit.createAuthentication(fromViewController: self, tokenId: tokenID!, amount: amountNumber) { (authentication, error) in
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
             }
@@ -54,8 +53,11 @@ class CreateAuthentification: UIViewController {
             }
 
             // Will return authentication with id. ID will be used later
-            let message = String(format: "AuthenticationID - %@, Status - %@", (authentication?.id)!, (authentication?.status)!)
-            self.showAlert(title: "Authentication", message: message)
+            DispatchQueue.main.async {
+                self.resultsTextView.text = String(format: "Authentication Id: %@\n Status: %@", (authentication!.id)!, (authentication!.status)!)
+            }
+
+            self.showAlert(title: "Authentication", message: authentication!.id)
         }
     }
     

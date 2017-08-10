@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *expYearTExtField;
 @property (weak, nonatomic) IBOutlet UITextField *cvnTextField;
 @property (weak, nonatomic) IBOutlet UITextField *amountTextField;
+@property (weak, nonatomic) IBOutlet UISwitch *isMultipleUseSwitch;
+@property (weak, nonatomic) IBOutlet UITextView *resultsTextView;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIdnicator;
 
@@ -40,6 +42,7 @@
     cardData.cardExpMonth = self.expMonthTextField.text;
     cardData.cardExpYear = self.expYearTExtField.text;
     cardData.cardCvn = self.cvnTextField.text;
+    cardData.isMultipleUse = self.isMultipleUseSwitch.isOn;
     
     if (self.amountTextField.text.length > 0) {
         cardData.amount = @(self.amountTextField.text.integerValue);
@@ -61,8 +64,10 @@
             alertTitle = error.errorCode;
             alertMessage = error.message;
         }
+
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage handler:nil];
         dispatch_async(dispatch_get_main_queue(), ^(void){
+            _resultsTextView.text = [NSString stringWithFormat:@"Token id: %@\n Status: %@", token.tokenID, token.status];
             [weakSelf.activityIdnicator stopAnimating];
             [weakSelf presentViewController:alert animated:YES completion:nil];
         });

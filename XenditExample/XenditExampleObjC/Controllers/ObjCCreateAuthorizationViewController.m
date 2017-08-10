@@ -15,8 +15,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *tokenIDTextField;
 @property (weak, nonatomic) IBOutlet UITextField *amountTextField;
-@property (weak, nonatomic) IBOutlet UITextField *cvnTextField;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UITextView *resultsTextView;
 
 @end
 
@@ -35,9 +35,8 @@
     
     NSString *tokenID = self.tokenIDTextField.text;
     NSString *amount = self.amountTextField.text;
-    NSString *cvn = self.cvnTextField.text;
     
-    if (tokenID.length == 0  && amount.length == 0 && cvn.length == 0) {
+    if (tokenID.length == 0  && amount.length == 0) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Some fields are empty" handler:nil];
         [self presentViewController:alert animated:YES completion:nil];
         return;
@@ -47,13 +46,13 @@
     
     __weak __typeof__(self) weakSelf = self;
     
-    [Xendit createAuthenticationFromViewController:self tokenId:tokenID amount:@(amount.integerValue) cardCVN:cvn completion:^(XENAuthentication * _Nullable authentication, XENError * _Nullable error) {
+    [Xendit createAuthenticationFromViewController:self tokenId:tokenID amount:@(amount.integerValue) completion:^(XENAuthentication * _Nullable authentication, XENError * _Nullable error) {
         NSString *alertTitle = nil;
         NSString *alertMessage = nil;
 
         if (authentication != nil) {
             alertTitle = @"Authentication";
-            alertMessage = [NSString stringWithFormat:@"TokenID - %@, Status - %@", authentication.authenticationID, authentication.status];
+            alertMessage = authentication.authenticationID;
         } else {
             alertTitle = error.errorCode;
             alertMessage = error.message;
@@ -61,6 +60,7 @@
 
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage handler:nil];
         dispatch_async(dispatch_get_main_queue(), ^(void){
+            self.resultsTextView.text = [NSString stringWithFormat:@"Token id: %@\n Status: %@", authentication.authenticationID, authentication.status];
             [weakSelf.activityIndicator stopAnimating];
             [weakSelf presentViewController:alert animated:YES completion:nil];
         });

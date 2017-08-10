@@ -154,8 +154,9 @@ SWIFT_CLASS_NAMED("CardData")
 @property (nonatomic, copy) NSString * _Null_unspecified cardNumber;
 @property (nonatomic, copy) NSString * _Null_unspecified cardExpMonth;
 @property (nonatomic, copy) NSString * _Null_unspecified cardExpYear;
-@property (nonatomic, copy) NSString * _Null_unspecified cardCvn;
+@property (nonatomic, copy) NSString * _Nullable cardCvn;
 @property (nonatomic, strong) NSNumber * _Null_unspecified amount;
+@property (nonatomic) BOOL isMultipleUse;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -182,8 +183,10 @@ SWIFT_CLASS_NAMED("Xendit")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) NSString * _Nullable publishableKey;)
 + (NSString * _Nullable)publishableKey SWIFT_WARN_UNUSED_RESULT;
 + (void)setPublishableKey:(NSString * _Nullable)value;
++ (void)createTokenFromViewController:(UIViewController * _Nonnull)fromViewController cardData:(XENCardData * _Null_unspecified)cardData shouldAuthenticate:(BOOL)shouldAuthenticate completion:(void (^ _Nonnull)(XENCCToken * _Nullable, XENError * _Nullable))completion;
 + (void)createTokenFromViewController:(UIViewController * _Nonnull)fromViewController cardData:(XENCardData * _Null_unspecified)cardData completion:(void (^ _Nonnull)(XENCCToken * _Nullable, XENError * _Nullable))completion;
 + (void)createAuthenticationFromViewController:(UIViewController * _Nonnull)fromViewController tokenId:(NSString * _Nonnull)tokenId amount:(NSNumber * _Nonnull)amount cardCVN:(NSString * _Nonnull)cardCVN completion:(void (^ _Nonnull)(XENAuthentication * _Nullable, XENError * _Nullable))completion;
++ (void)createAuthenticationFromViewController:(UIViewController * _Nonnull)fromViewController tokenId:(NSString * _Nonnull)tokenId amount:(NSNumber * _Nonnull)amount completion:(void (^ _Nonnull)(XENAuthentication * _Nullable, XENError * _Nullable))completion;
 + (BOOL)isCardNumberValidWithCardNumber:(NSString * _Nonnull)cardNumber SWIFT_WARN_UNUSED_RESULT;
 + (BOOL)isExpiryValidWithCardExpirationMonth:(NSString * _Nonnull)cardExpirationMonth cardExpirationYear:(NSString * _Nonnull)cardExpirationYear SWIFT_WARN_UNUSED_RESULT;
 + (BOOL)isCvnValidWithCreditCardCVN:(NSString * _Nonnull)creditCardCVN SWIFT_WARN_UNUSED_RESULT;
@@ -212,6 +215,7 @@ SWIFT_CLASS_NAMED("XenditCCToken")
 @interface XENCCToken : NSObject
 @property (nonatomic, copy) NSString * _Null_unspecified tokenID;
 @property (nonatomic, copy) NSString * _Null_unspecified status;
+@property (nonatomic, copy) NSString * _Null_unspecified authenticationId;
 @property (nonatomic, copy) NSString * _Nullable authenticationURL;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end

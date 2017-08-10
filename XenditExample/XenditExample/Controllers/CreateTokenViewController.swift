@@ -17,6 +17,8 @@ class CreateTokenViewController: UIViewController {
     @IBOutlet weak var cardExpYearTextField: UITextField!
     @IBOutlet weak var cardCvnTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
+    @IBOutlet weak var isMultipleUseSwitch: UISwitch!
+    @IBOutlet weak var resultTextView: UITextView!
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -39,6 +41,7 @@ class CreateTokenViewController: UIViewController {
         cardData.cardExpMonth = cardExpMonthTextField.text
         cardData.cardExpYear = cardExpYearTextField.text
         cardData.cardCvn = cardCvnTextField.text
+        cardData.isMultipleUse = isMultipleUseSwitch.isOn
         
         if (amountTextField.text?.characters.count)! > 0 {
             let int = Int(amountTextField.text!)
@@ -59,8 +62,11 @@ class CreateTokenViewController: UIViewController {
             }
 
             // Handle successful tokenization. Token is of type XenditCCToken
-            let message = String(format: "TokenID - %@, Status - %@", (token?.id)!, (token?.status)!)
-            self.showAlert(title: "Token", message: message)
+            DispatchQueue.main.async() {
+                self.resultTextView.text = String(format: "Token id: %@\n Status: %@", (token?.id)!, (token?.status)!)
+            }
+
+            self.showAlert(title: "Token", message: token!.id)
         }
     }
 

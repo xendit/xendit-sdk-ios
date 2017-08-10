@@ -36,7 +36,6 @@ cardData.cardCvn = "123"
 cardData.isMultipleUse = true
 
 Xendit.createToken(fromViewController: self, cardData: cardData) { (token, error) in
-
     if (error != nil) {
         // Handle error. Error is of type XenditError
         return
@@ -69,10 +68,9 @@ cardData.cardCvn = @"123";
 Swift:
 ```
 let tokenID = "sample-token-id"
-let cardCVN = "123"
 let amount = 75000
 
-Xendit.createAuthentication(fromViewController: self, tokenId: tokenID!, amount: amount, cardCVN: cardCVN!) { (authentication, error) in
+Xendit.createAuthentication(fromViewController: self, tokenId: tokenID!, amount: amount) { (authentication, error) in
     DispatchQueue.main.async {
         self.activityIndicator.stopAnimating()
     }
@@ -89,10 +87,9 @@ Xendit.createAuthentication(fromViewController: self, tokenId: tokenID!, amount:
 Objective-C:
 ```
 NSString *tokenID = @"sample-token-id";
-NSString *cvn = @"123";
 int amount = 75000;
 
-[Xendit createAuthenticationFromViewController:self tokenId:tokenID amount:amount cardCVN:cvn completion:^(XENAuthentication * _Nullable authentication, XENError * _Nullable error) {
+[Xendit createAuthenticationFromViewController:self tokenId:tokenID amount:amount completion:^(XENAuthentication * _Nullable authentication, XENError * _Nullable error) {
     if (err != nil) {
         // Handle error
         return
