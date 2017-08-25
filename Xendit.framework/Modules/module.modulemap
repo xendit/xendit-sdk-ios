@@ -7,4 +7,5 @@ framework module Xendit {
 
 module Xendit.Swift {
     header "Xendit-Swift.h"
+    requires objc
 }
