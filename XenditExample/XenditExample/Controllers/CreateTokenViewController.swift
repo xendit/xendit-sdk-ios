@@ -51,20 +51,17 @@ class CreateTokenViewController: UIViewController {
         activityIndicator.startAnimating()
         
         Xendit.createToken(fromViewController: self, cardData: cardData) { (token, error) in
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-            }
-
             if (error != nil) {
                 // Handle error. Error is of type XenditError
+                print(error?.errorCode)
+                print(error?.message)
                 self.showAlert(title: error!.errorCode, message: error!.message)
                 return
             }
-
-            // Handle successful tokenization. Token is of type XenditCCToken
-            DispatchQueue.main.async() {
-                self.resultTextView.text = String(format: "Token id: %@\n Status: %@", (token?.id)!, (token?.status)!)
-            }
+            
+            print("Xendit create token response: ")
+            print(token!.id)
+            print(token!.status)
 
             self.showAlert(title: "Token", message: token!.id)
         }
