@@ -237,7 +237,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Xendit;
 				TargetAttributes = {
 					944C41711E8E58A600142EE0 = {
@@ -253,7 +253,7 @@
 			};
 			buildConfigurationList = 944C416D1E8E58A600142EE0 /* Build configuration list for PBXProject "XenditExample" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
