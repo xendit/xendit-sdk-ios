@@ -1,6 +1,14 @@
 # xendit-sdk-ios
 The Xendit iOS SDK makes it easy to collect sensitive credit card information without that data ever having to touch your server.
 
+## Ownership
+
+Team: [Credit Cards Team](https://www.draw.io/?state=%7B%22ids%22:%5B%221Vk1zqYgX2YqjJYieQ6qDPh0PhB2yAd0j%22%5D,%22action%22:%22open%22,%22userId%22:%22104938211257040552218%22%7D)
+
+Slack Channel: [#cards-dev](https://xendit.slack.com/messages/cards-dev)
+
+Slack Mentions: `@troops-cards`
+
 ## Requirements
 Our SDK is compatible with iOS apps supporting iOS 8.0 and above
 
