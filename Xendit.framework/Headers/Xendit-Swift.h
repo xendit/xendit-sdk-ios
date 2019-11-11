@@ -299,7 +299,7 @@ SWIFT_CLASS_NAMED("XenditError")
 
 
 
-typedef SWIFT_ENUM_NAMED(NSUInteger, XENLogLevel, "XenditLogLevel", closed) {
+typedef SWIFT_ENUM_NAMED(NSUInteger, XENLogLevel, "XenditLogLevel", open) {
   XENLogLevelVerbose = 0,
   XENLogLevelInfo = 1,
   XENLogLevelWarning = 2,
@@ -611,7 +611,7 @@ SWIFT_CLASS_NAMED("XenditError")
 
 
 
-typedef SWIFT_ENUM_NAMED(NSUInteger, XENLogLevel, "XenditLogLevel", closed) {
+typedef SWIFT_ENUM_NAMED(NSUInteger, XENLogLevel, "XenditLogLevel", open) {
   XENLogLevelVerbose = 0,
   XENLogLevelInfo = 1,
   XENLogLevelWarning = 2,
