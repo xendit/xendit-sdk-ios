@@ -31,7 +31,7 @@ class CreateAuthentification: UIViewController {
         let tokenID = tokenIDTextField.text
         let amount = amountTextField.text
         
-        guard (tokenID?.characters.count)! > 0, (amount?.characters.count)! > 0  else {
+        guard (tokenID?.count)! > 0, (amount?.count)! > 0  else {
             showAlert(title: "Error", message: "Some fields are empty. Please fill all fields.")
             return
         }
