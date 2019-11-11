@@ -43,7 +43,7 @@ class CreateTokenViewController: UIViewController {
         cardData.cardCvn = cardCvnTextField.text
         cardData.isMultipleUse = isMultipleUseSwitch.isOn
         
-        if (amountTextField.text?.characters.count)! > 0 {
+        if (amountTextField.text?.count)! > 0 {
             let int = Int(amountTextField.text!)
             cardData.amount = NSNumber(value: int!)
         }
