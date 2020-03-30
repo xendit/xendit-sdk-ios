@@ -13,7 +13,7 @@ Slack Mentions: `@troops-tpi`
 Our SDK is compatible with iOS apps supporting iOS 8.0 and above
 
 ## Installation
-There are two options install the Xendit iOS SDK:
+There are two options to install Xendit iOS SDK:
 1. Cocoapods https://cocoapods.org/pods/Xendit
 2. Visit our releases page https://github.com/xendit/xendit-sdk-ios/releases and download the static framework Xendit.framework.zip
 
@@ -34,6 +34,7 @@ Xendit.publishableKey = @"xnd_public_development_O4iFfuQhgLOsl8M9eeEYGzeWYNH3otV
 ```
 
 ### Creating a token
+
 Swift:
 ```
 let cardData = CardData()
@@ -43,7 +44,7 @@ cardData.cardExpYear = "2017"
 cardData.cardCvn = "123"
 cardData.isMultipleUse = true
 
-Xendit.createToken(fromViewController: self, cardData: cardData) { (token, error) in
+Xendit.createToken(fromViewController: self, cardData: cardData, shouldAuthenticate: true, onBehalfOf: "user-id") { (token, error) in
     if (error != nil) {
         // Handle error. Error is of type XenditError
         return
@@ -61,7 +62,7 @@ cardData.cardExpMonth = @"12";
 cardData.cardExpYear = @"2017";
 cardData.cardCvn = @"123";
 
-[Xendit createTokenFromViewController:self cardData:cardData completion:^(XENCCToken * _Nullable token, XENError * _Nullable error) {
+[Xendit createTokenFromViewController:self cardData:cardData shouldAuthenticate:true onBehalfOf:"user-id" completion:^(XENCCToken * _Nullable token, XENError * _Nullable error) {
     if (error != nil) {
         // Handle error
         return
@@ -70,15 +71,16 @@ cardData.cardCvn = @"123";
     // Handle successful tokenization
 }];
 ```
+`createToken` accept 4 parameters: fromViewController, `cardData` object, optional `shouldAuthenticate` (boolean) and optional `onBehalfOf` (string). `shouldAuthenticate` will be set to true and `onBehalfOf` will be set to empty if you omit these parameters.
 
-### Creating a 3ds authentication
+### Creating a 3DS authentication
 
 Swift:
 ```
 let tokenID = "sample-token-id"
 let amount = 75000
 
-Xendit.createAuthentication(fromViewController: self, tokenId: tokenID!, amount: amount) { (authentication, error) in
+Xendit.createAuthentication(fromViewController: self, tokenId: tokenID!, amount: amount, onBehalfOf: "user-id") { (authentication, error) in
     DispatchQueue.main.async {
         self.activityIndicator.stopAnimating()
     }
@@ -97,7 +99,7 @@ Objective-C:
 NSString *tokenID = @"sample-token-id";
 int amount = 75000;
 
-[Xendit createAuthenticationFromViewController:self tokenId:tokenID amount:amount completion:^(XENAuthentication * _Nullable authentication, XENError * _Nullable error) {
+[Xendit createAuthenticationFromViewController:self tokenId:tokenID amount:amount onBehalfOf:"" completion:^(XENAuthentication * _Nullable authentication, XENError * _Nullable error) {
     if (err != nil) {
         // Handle error
         return
@@ -106,6 +108,7 @@ int amount = 75000;
     // Handle successful authentication
 }];
 ```
+`createAuthentication` accept 4 parameters: fromViewController, tokenId, amount and optional `onBehalfOf` (string). `onBehalfOf` will be set to empty if you omit it, but is required when you passed it during `createToken`.
 
 ### Creating a charge
 When you're ready to charge a card, use the private key on your backend to call the charge endpoint. See our API reference at https://xendit.github.io/apireference/#create-charge
