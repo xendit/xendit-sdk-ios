@@ -67,7 +67,7 @@
 
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage handler:nil];
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            _resultsTextView.text = [NSString stringWithFormat:@"Token id: %@\n Status: %@", token.tokenID, token.status];
+            self->_resultsTextView.text = [NSString stringWithFormat:@"Token id: %@\n Status: %@", token.tokenID, token.status];
             [weakSelf.activityIdnicator stopAnimating];
             [weakSelf presentViewController:alert animated:YES completion:nil];
         });
