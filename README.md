@@ -9,6 +9,9 @@ Slack Channel: [#integration-product](https://xendit.slack.com/messages/integrat
 
 Slack Mentions: `@troops-tpi`
 
+## Note
+Only for real device
+
 ## Requirements
 Our SDK is compatible with iOS apps supporting iOS 8.0 and above
 
