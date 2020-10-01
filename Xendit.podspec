@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "Xendit"
-  s.version      = "2.1.3"
+  s.version      = "2.1.4"
   s.summary      = "Xendit makes it easy to collect credit card data securely without it having to touch your server"
   s.homepage     = "https://www.xendit.co"
   s.license      = "MIT"
