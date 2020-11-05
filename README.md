@@ -13,7 +13,7 @@ Slack Mentions: `@troops-tpi`
 Only for real device
 
 ## Requirements
-Our SDK is compatible with iOS apps supporting iOS 8.0 and above
+Our SDK is compatible with iOS apps supporting iOS 9.0 and above
 
 ## Installation
 There are two options to install Xendit iOS SDK:
