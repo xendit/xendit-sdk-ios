@@ -36,7 +36,7 @@ public class XenditAddress {
 public class XDTCards {
   public static func setup(publishableKey: Swift.String)
   public static func createToken(fromViewController: UIKit.UIViewController, tokenizationRequest: Xendit.XenditTokenizationRequest, onBehalfOf: Swift.String?, completion: @escaping (Xendit.XenditCCToken?, Xendit.XenditError?) -> Swift.Void)
-  public static func createAuthentication(fromViewController: UIKit.UIViewController, tokenId: Swift.String, amount: Foundation.NSNumber, onBehalfOf: Swift.String?, completion: @escaping (Xendit.XenditAuthentication?, Xendit.XenditError?) -> Swift.Void)
+  public static func createAuthentication(fromViewController: UIKit.UIViewController, tokenId: Swift.String, amount: Foundation.NSNumber, onBehalfOf: Swift.String?, customer: Xendit.XenditCustomer?, completion: @escaping (Xendit.XenditAuthentication?, Xendit.XenditError?) -> Swift.Void)
   public static func get3DSRecommendation(tokenId: Swift.String, completion: @escaping (Xendit.Xendit3DSRecommendation?, Xendit.XenditError?) -> Swift.Void)
   @objc deinit
 }
@@ -82,6 +82,13 @@ public class XenditTokenizationRequest {
   public var billingDetails: Xendit.XenditBillingDetails?
   public var customer: Xendit.XenditCustomer?
   public init(cardData: Xendit.CardData, shouldAuthenticate: Swift.Bool)
+  @objc deinit
+}
+public class XenditJWTRequest {
+  open var amount: Foundation.NSNumber
+  open var currency: Swift.String?
+  open var midLabel: Swift.String?
+  open var customer: Xendit.XenditCustomer?
   @objc deinit
 }
 @objcMembers @objc(XENAuthenticationData) open class AuthenticationData : ObjectiveC.NSObject {
