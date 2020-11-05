@@ -1,7 +1,8 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
-// swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Xendit
+// swift-compiler-version: Apple Swift version 5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)
+// swift-module-flags: -target x86_64-apple-ios9.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name Xendit
 import SystemConfiguration.CaptiveNetwork
+import CardinalMobile
 import CoreLocation
 import Foundation
 import Swift
@@ -9,67 +10,159 @@ import SystemConfiguration
 import UIKit
 import WebKit
 @_exported import Xendit
-@_inheritsConvenienceInitializers @objcMembers @objc(XENAuthentication) open class XenditAuthentication : ObjectiveC.NSObject {
+@objcMembers @objc(XENAuthentication) open class XenditAuthentication : ObjectiveC.NSObject {
   @objc(authenticationID) open var id: Swift.String!
   @objc open var status: Swift.String!
+  @objc open var tokenId: Swift.String?
   @objc open var authenticationURL: Swift.String?
-  @objc deinit
+  @objc open var authenticationTransactionId: Swift.String?
+  @objc open var requestPayload: Swift.String?
+  @objc open var maskedCardNumber: Swift.String?
+  @objc open var metadata: Xendit.XenditCardMetadata?
   @objc override dynamic public init()
+  @objc deinit
+}
+public class XenditAddress {
+  public var country: Swift.String?
+  public var streetLine1: Swift.String?
+  public var streetLine2: Swift.String?
+  public var city: Swift.String?
+  public var province: Swift.String?
+  public var state: Swift.String?
+  public var postalCode: Swift.String?
+  public init()
+  @objc deinit
+}
+public class XDTCards {
+  public static func setup(publishableKey: Swift.String)
+  public static func createToken(fromViewController: UIKit.UIViewController, tokenizationRequest: Xendit.XenditTokenizationRequest, onBehalfOf: Swift.String?, completion: @escaping (Xendit.XenditCCToken?, Xendit.XenditError?) -> Swift.Void)
+  public static func createAuthentication(fromViewController: UIKit.UIViewController, tokenId: Swift.String, amount: Foundation.NSNumber, onBehalfOf: Swift.String?, completion: @escaping (Xendit.XenditAuthentication?, Xendit.XenditError?) -> Swift.Void)
+  public static func get3DSRecommendation(tokenId: Swift.String, completion: @escaping (Xendit.Xendit3DSRecommendation?, Xendit.XenditError?) -> Swift.Void)
+  @objc deinit
+}
+@objcMembers @objc(XENCardMetadata) open class XenditCardMetadata : ObjectiveC.NSObject {
+  @objc open var bank: Swift.String?
+  @objc open var countryCode: Swift.String?
+  @objc open var type: Swift.String?
+  @objc open var brand: Swift.String?
+  @objc open var cardArtUrl: Swift.String?
+  @objc override dynamic public init()
+  @objc deinit
 }
 @objc(XENLogLevel) public enum XenditLogLevel : Swift.UInt {
-  case verbose, info, warning, error
+  case verbose
+  case info
+  case warning
+  case error
   public typealias RawValue = Swift.UInt
   public init?(rawValue: Swift.UInt)
   public var rawValue: Swift.UInt {
     get
   }
 }
-@_inheritsConvenienceInitializers @objcMembers @objc(XENError) open class XenditError : ObjectiveC.NSObject {
+@objcMembers @objc(XENError) open class XenditError : ObjectiveC.NSObject {
   @objc(errorCode) open var errorCode: Swift.String!
   @objc open var message: Swift.String!
   @objc override dynamic open var description: Swift.String {
     @objc get
   }
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
 }
-@_inheritsConvenienceInitializers @objcMembers @objc(XENAuthenticationData) open class AuthenticationData : ObjectiveC.NSObject {
+@objc extension XenditError {
+  @objc public static func ServerError() -> Xendit.XenditError
+}
+public class XenditTokenizationRequest {
+  public var amount: Foundation.NSNumber
+  public var isSingleUse: Swift.Bool
+  public var shouldAuthenticate: Swift.Bool
+  public var cardData: Xendit.CardData
+  public var midLabel: Swift.String?
+  public var currency: Swift.String?
+  public var billingDetails: Xendit.XenditBillingDetails?
+  public var customer: Xendit.XenditCustomer?
+  public init(cardData: Xendit.CardData, shouldAuthenticate: Swift.Bool)
+  @objc deinit
+}
+@objcMembers @objc(XENAuthenticationData) open class AuthenticationData : ObjectiveC.NSObject {
   @objc open var tokenId: Swift.String!
   @objc open var cardCvn: Swift.String!
   @objc open var amount: Foundation.NSNumber!
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
 }
-@_inheritsConvenienceInitializers @objcMembers @objc(XENCCToken) open class XenditCCToken : ObjectiveC.NSObject {
+@objcMembers @objc(XENCCToken) open class XenditCCToken : ObjectiveC.NSObject {
   @objc(tokenID) open var id: Swift.String!
   @objc open var status: Swift.String!
   @objc open var authenticationId: Swift.String!
   @objc open var authenticationURL: Swift.String?
   @objc open var maskedCardNumber: Swift.String?
   open var should3DS: Swift.Bool?
+  @objc open var metadata: Xendit.XenditCardMetadata?
   @objc override dynamic public init()
   @objc deinit
 }
-@_inheritsConvenienceInitializers @objcMembers @objc(Xendit) open class Xendit : ObjectiveC.NSObject {
+public class XenditBillingDetails {
+  public var givenNames: Swift.String?
+  public var middleName: Swift.String?
+  public var surname: Swift.String?
+  public var email: Swift.String?
+  public var mobileNumber: Swift.String?
+  public var phoneNumber: Swift.String?
+  public var address: Xendit.XenditAddress?
+  public init()
+  @objc deinit
+}
+public class XenditCustomer {
+  public var referenceId: Swift.String?
+  public var email: Swift.String?
+  public var givenName: Swift.String?
+  public var middleName: Swift.String?
+  public var surname: Swift.String?
+  public var description: Swift.String?
+  public var mobileNumber: Swift.String?
+  public var phoneNumber: Swift.String?
+  public var nationality: Swift.String?
+  public var dateOfBirth: Swift.String?
+  public var metadata: [Swift.String : Swift.String]?
+  public var addresses: [Xendit.XenditAddress]?
+  public init()
+  @objc deinit
+}
+@objcMembers @objc(Xendit) open class Xendit : ObjectiveC.NSObject {
   @objc public static var publishableKey: Swift.String?
+  public static func createToken(fromViewController: UIKit.UIViewController, tokenizationRequest: Xendit.XenditTokenizationRequest, onBehalfOf: Swift.String, completion: @escaping (Xendit.XenditCCToken?, Xendit.XenditError?) -> Swift.Void)
   @objc public static func createToken(fromViewController: UIKit.UIViewController, cardData: Xendit.CardData!, shouldAuthenticate: Swift.Bool, onBehalfOf: Swift.String, completion: @escaping (Xendit.XenditCCToken?, Xendit.XenditError?) -> Swift.Void)
   @objc public static func createToken(fromViewController: UIKit.UIViewController, cardData: Xendit.CardData!, completion: @escaping (Xendit.XenditCCToken?, Xendit.XenditError?) -> Swift.Void)
   public static func createToken(fromViewController: UIKit.UIViewController, cardData: Xendit.CardData!, shouldAuthenticate: Swift.Bool!, completion: @escaping (Xendit.XenditCCToken?, Xendit.XenditError?) -> Swift.Void)
-  @objc public static func createAuthentication(fromViewController: UIKit.UIViewController, tokenId: Swift.String, amount: Foundation.NSNumber, cardCVN: Swift.String, completion: @escaping (Xendit.XenditAuthentication?, Xendit.XenditError?) -> Swift.Void)
   @objc public static func createAuthentication(fromViewController: UIKit.UIViewController, tokenId: Swift.String, amount: Foundation.NSNumber, onBehalfOf: Swift.String, completion: @escaping (Xendit.XenditAuthentication?, Xendit.XenditError?) -> Swift.Void)
   @objc public static func createAuthentication(fromViewController: UIKit.UIViewController, tokenId: Swift.String, amount: Foundation.NSNumber, completion: @escaping (Xendit.XenditAuthentication?, Xendit.XenditError?) -> Swift.Void)
+  @objc public static func createAuthentication(fromViewController: UIKit.UIViewController, tokenId: Swift.String, amount: Foundation.NSNumber, cardCVN: Swift.String, completion: @escaping (Xendit.XenditAuthentication?, Xendit.XenditError?) -> Swift.Void)
   @objc public static func isCardNumberValid(cardNumber: Swift.String) -> Swift.Bool
   @objc public static func isExpiryValid(cardExpirationMonth: Swift.String, cardExpirationYear: Swift.String) -> Swift.Bool
   @objc public static func isCvnValid(creditCardCVN: Swift.String) -> Swift.Bool
   @objc public static func isCvnValidForCardType(creditCardCVN: Swift.String, cardNumber: Swift.String) -> Swift.Bool
   public static func setLogLevel(_ level: Xendit.XenditLogLevel?)
   public static func setLogDNALevel(_ level: Xendit.ISHLogDNALevel?)
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
 }
-@_inheritsConvenienceInitializers @objcMembers @objc(XEN3DSRecommendation) open class Xendit3DSRecommendation : ObjectiveC.NSObject {
+@objcMembers @objc(XEN3DSRecommendation) open class Xendit3DSRecommendation : ObjectiveC.NSObject {
   @objc(tokenID) open var tokenId: Swift.String!
   open var should3DS: Swift.Bool!
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objcMembers @objc(XENAuthenticatedToken) open class XenditAuthenticatedToken : ObjectiveC.NSObject {
+  @objc(tokenID) open var id: Swift.String!
+  @objc open var status: Swift.String!
+  @objc open var authenticationId: Swift.String?
+  @objc open var authenticationURL: Swift.String?
+  @objc open var maskedCardNumber: Swift.String?
+  @objc open var jwt: Swift.String?
+  @objc open var environment: Swift.String?
+  @objc open var threedsVersion: Swift.String?
+  @objc open var metadata: Xendit.XenditCardMetadata?
   @objc override dynamic public init()
   @objc deinit
 }
@@ -89,7 +182,7 @@ public enum CYBCardTypes {
   }
   public func hash(into hasher: inout Swift.Hasher)
 }
-@_inheritsConvenienceInitializers @objcMembers @objc(XENCardData) open class CardData : ObjectiveC.NSObject {
+@objcMembers @objc(XENCardData) open class CardData : ObjectiveC.NSObject {
   @objc open var cardNumber: Swift.String!
   @objc open var cardExpMonth: Swift.String!
   @objc open var cardExpYear: Swift.String!
@@ -105,13 +198,8 @@ public enum CYBCardTypes {
   }
   @objc deinit
 }
-@objc @_inheritsConvenienceInitializers @objcMembers open class WebViewConstants : ObjectiveC.NSObject {
+@objc @objcMembers open class WebViewConstants : ObjectiveC.NSObject {
   @objc public static var templateHTMLWithAuthenticateURL: Swift.String
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
 }
-extension Xendit.XenditLogLevel : Swift.Equatable {}
-extension Xendit.XenditLogLevel : Swift.Hashable {}
-extension Xendit.XenditLogLevel : Swift.RawRepresentable {}
-extension Xendit.CYBCardTypes : Swift.Equatable {}
-extension Xendit.CYBCardTypes : Swift.Hashable {}
