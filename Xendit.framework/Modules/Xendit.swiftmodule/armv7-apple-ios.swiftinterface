@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 5.3.1 (swiftlang-1200.0.41 clang-1200.0.32.8)
-// swift-module-flags: -target armv7-apple-ios9.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name Xendit
+// swift-module-flags: -target armv7-apple-ios9.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Xendit
 import SystemConfiguration.CaptiveNetwork
 import CardinalMobile
 import CoreLocation
@@ -18,7 +18,7 @@ import WebKit
   @objc open var authenticationTransactionId: Swift.String?
   @objc open var requestPayload: Swift.String?
   @objc open var maskedCardNumber: Swift.String?
-  @objc open var metadata: Xendit.XenditCardMetadata?
+  @objc open var cardInfo: Xendit.XenditCardMetadata?
   @objc deinit
   @objc override dynamic public init()
 }
@@ -50,10 +50,7 @@ public class XenditAddress {
   @objc deinit
 }
 @objc(XENLogLevel) public enum XenditLogLevel : Swift.UInt {
-  case verbose
-  case info
-  case warning
-  case error
+  case verbose, info, warning, error
   public typealias RawValue = Swift.UInt
   public init?(rawValue: Swift.UInt)
   public var rawValue: Swift.UInt {
@@ -66,8 +63,8 @@ public class XenditAddress {
   @objc override dynamic open var description: Swift.String {
     @objc get
   }
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
 }
 @objc extension XenditError {
   @objc public static func ServerError() -> Xendit.XenditError
@@ -95,8 +92,8 @@ public class XenditTokenizationRequest {
   @objc open var tokenId: Swift.String!
   @objc open var cardCvn: Swift.String!
   @objc open var amount: Foundation.NSNumber!
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
 }
 @_inheritsConvenienceInitializers @objcMembers @objc(XENCCToken) open class XenditCCToken : ObjectiveC.NSObject {
   @objc(tokenID) open var id: Swift.String!
@@ -105,9 +102,9 @@ public class XenditTokenizationRequest {
   @objc open var authenticationURL: Swift.String?
   @objc open var maskedCardNumber: Swift.String?
   open var should3DS: Swift.Bool?
-  @objc open var metadata: Xendit.XenditCardMetadata?
-  @objc deinit
+  @objc open var cardInfo: Xendit.XenditCardMetadata?
   @objc override dynamic public init()
+  @objc deinit
 }
 public class XenditBillingDetails {
   public var givenNames: Swift.String?
@@ -169,9 +166,9 @@ public class XenditCustomer {
   @objc open var jwt: Swift.String?
   @objc open var environment: Swift.String?
   @objc open var threedsVersion: Swift.String?
-  @objc open var metadata: Xendit.XenditCardMetadata?
-  @objc deinit
+  @objc open var cardInfo: Xendit.XenditCardMetadata?
   @objc override dynamic public init()
+  @objc deinit
 }
 public enum CYBCardTypes {
   case VISA
@@ -210,3 +207,8 @@ public enum CYBCardTypes {
   @objc deinit
   @objc override dynamic public init()
 }
+extension Xendit.XenditLogLevel : Swift.Equatable {}
+extension Xendit.XenditLogLevel : Swift.Hashable {}
+extension Xendit.XenditLogLevel : Swift.RawRepresentable {}
+extension Xendit.CYBCardTypes : Swift.Equatable {}
+extension Xendit.CYBCardTypes : Swift.Hashable {}

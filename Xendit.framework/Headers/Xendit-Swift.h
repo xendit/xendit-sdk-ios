@@ -285,7 +285,7 @@ SWIFT_CLASS_NAMED("XenditAuthenticatedToken")
 @property (nonatomic, copy) NSString * _Nullable jwt;
 @property (nonatomic, copy) NSString * _Nullable environment;
 @property (nonatomic, copy) NSString * _Nullable threedsVersion;
-@property (nonatomic, strong) XENCardMetadata * _Nullable metadata;
+@property (nonatomic, strong) XENCardMetadata * _Nullable cardInfo;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -300,7 +300,7 @@ SWIFT_CLASS_NAMED("XenditAuthentication")
 @property (nonatomic, copy) NSString * _Nullable authenticationTransactionId;
 @property (nonatomic, copy) NSString * _Nullable requestPayload;
 @property (nonatomic, copy) NSString * _Nullable maskedCardNumber;
-@property (nonatomic, strong) XENCardMetadata * _Nullable metadata;
+@property (nonatomic, strong) XENCardMetadata * _Nullable cardInfo;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -314,7 +314,7 @@ SWIFT_CLASS_NAMED("XenditCCToken")
 @property (nonatomic, copy) NSString * _Null_unspecified authenticationId;
 @property (nonatomic, copy) NSString * _Nullable authenticationURL;
 @property (nonatomic, copy) NSString * _Nullable maskedCardNumber;
-@property (nonatomic, strong) XENCardMetadata * _Nullable metadata;
+@property (nonatomic, strong) XENCardMetadata * _Nullable cardInfo;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -648,7 +648,7 @@ SWIFT_CLASS_NAMED("XenditAuthenticatedToken")
 @property (nonatomic, copy) NSString * _Nullable jwt;
 @property (nonatomic, copy) NSString * _Nullable environment;
 @property (nonatomic, copy) NSString * _Nullable threedsVersion;
-@property (nonatomic, strong) XENCardMetadata * _Nullable metadata;
+@property (nonatomic, strong) XENCardMetadata * _Nullable cardInfo;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -663,7 +663,7 @@ SWIFT_CLASS_NAMED("XenditAuthentication")
 @property (nonatomic, copy) NSString * _Nullable authenticationTransactionId;
 @property (nonatomic, copy) NSString * _Nullable requestPayload;
 @property (nonatomic, copy) NSString * _Nullable maskedCardNumber;
-@property (nonatomic, strong) XENCardMetadata * _Nullable metadata;
+@property (nonatomic, strong) XENCardMetadata * _Nullable cardInfo;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -677,7 +677,7 @@ SWIFT_CLASS_NAMED("XenditCCToken")
 @property (nonatomic, copy) NSString * _Null_unspecified authenticationId;
 @property (nonatomic, copy) NSString * _Nullable authenticationURL;
 @property (nonatomic, copy) NSString * _Nullable maskedCardNumber;
-@property (nonatomic, strong) XENCardMetadata * _Nullable metadata;
+@property (nonatomic, strong) XENCardMetadata * _Nullable cardInfo;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
