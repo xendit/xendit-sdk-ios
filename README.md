@@ -1,3 +1,11 @@
+> ⚠️ **DEPRECATION NOTICE:**
+> This SDK (`xendit-sdk-ios`) is **deprecated** and in maintenance mode. No new features will be added.
+>
+> For all new integrations and existing apps, please migrate to our new drop-in **Xendit Components SDK**:
+> [https://github.com/xendit/xendit-components-ios](https://github.com/xendit/xendit-components-ios)
+> 
+> 📖 **[Read the Step-by-Step Migration Guide Here](https://github.com/xendit/xendit-components-ios/blob/main/MIGRATION_GUIDE.md)**
+
 # xendit-sdk-ios
 The Xendit iOS SDK makes it easy to collect sensitive credit card information without that data ever having to touch your server.
 
